@@ -3,7 +3,7 @@ name = "fizzbuzz"
 version = "0.1.0"
 authors = ["Sergey Bugaev <bugaevc@gmail.com>", "Ivan Molodetskikh <yalterz@gmail.com>"]
 description = "The ultimate FizzBuzz implementation"
-license = "MIT"
+license = "MIT/Apache-2.0"
 
 readme = "README.md"
 documentation = "https://docs.rs/fizzbuzz"
