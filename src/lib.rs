@@ -8,15 +8,17 @@ use Value::*;
 ///
 /// # Examples
 /// ```
+/// use fizzbuzz::Value::*;
+///
 /// let mut iter = (1..).map(fizzbuzz::Value::from);
 ///
-/// assert_eq!(iter.next(), Some(fizzbuzz::Value::Number(1)));
-/// assert_eq!(iter.next(), Some(fizzbuzz::Value::Number(2)));
-/// assert_eq!(iter.next(), Some(fizzbuzz::Value::Fizz));
-/// assert_eq!(iter.next(), Some(fizzbuzz::Value::Number(4)));
-/// assert_eq!(iter.next(), Some(fizzbuzz::Value::Buzz));
-/// assert_eq!(iter.next(), Some(fizzbuzz::Value::Fizz));
-/// assert_eq!(iter.next(), Some(fizzbuzz::Value::Number(7)));
+/// assert_eq!(iter.next(), Some(Number(1)));
+/// assert_eq!(iter.next(), Some(Number(2)));
+/// assert_eq!(iter.next(), Some(Fizz));
+/// assert_eq!(iter.next(), Some(Number(4)));
+/// assert_eq!(iter.next(), Some(Buzz));
+/// assert_eq!(iter.next(), Some(Fizz));
+/// assert_eq!(iter.next(), Some(Number(7)));
 /// ```
 #[derive(Eq, PartialEq, Copy, Clone, Debug, Hash)]
 pub enum Value {
