@@ -17,5 +17,5 @@ cache: cargo
 
 script:
   - cargo build --verbose
-  - cargo test --verbose
   - cargo build --verbose --examples
+  - cargo test --verbose
