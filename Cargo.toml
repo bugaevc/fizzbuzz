@@ -1,6 +1,13 @@
 [package]
 name = "fizzbuzz"
 version = "0.1.0"
-authors = ["Sergey Bugaev <bugaevc@gmail.com>"]
+authors = ["Sergey Bugaev <bugaevc@gmail.com>", "Ivan Molodetskikh <yalterz@gmail.com>"]
+description = "The ultimate FizzBuzz implementation"
+license = "MIT"
+
+readme = "README.md"
+documentation = "https://docs.rs/fizzbuzz"
+repository = "https://github.com/bugaevc/fizzbuzz"
+keywords = ["fizzbuzz", "fizz", "buzz"]
 
 [dependencies]
