@@ -2,6 +2,7 @@ use std::io::prelude::*;
 use std::fmt::{Display, Formatter, Result};
 use Value::*;
 
+/// A FizzBuzz value.
 #[derive(Eq, PartialEq, Copy, Clone, Debug, Hash)]
 pub enum Value {
     Fizz,
