@@ -1,17 +1,17 @@
 use std::io::prelude::*;
 use std::fmt::{Display, Formatter, Result};
-use FizzBuzz::*;
+use Value::*;
 
 #[derive(Eq, PartialEq, Copy, Clone, Debug, Hash)]
-pub enum FizzBuzz {
+pub enum Value {
     Fizz,
     Buzz,
     FizzBuzz,
     Number(u32),
 }
 
-impl From<u32> for FizzBuzz {
-    fn from(n: u32) -> FizzBuzz {
+impl From<u32> for Value {
+    fn from(n: u32) -> Value {
         match (n % 3, n % 5) {
             (0, 0) => FizzBuzz,
             (0, _) => Fizz,
@@ -21,7 +21,7 @@ impl From<u32> for FizzBuzz {
     }
 }
 
-impl Display for FizzBuzz {
+impl Display for Value {
     fn fmt(&self, f: &mut Formatter) -> Result {
         match *self {
             Fizz => write!(f, "Fizz"),
@@ -32,20 +32,25 @@ impl Display for FizzBuzz {
     }
 }
 
-/// Print FizzBuzz values over the specified sequence to the
-/// standard output.
+/// Print FizzBuzz values over the specified sequence to the standard output.
 ///
 /// # Examples
 /// ```
 /// fizzbuzz::fizzbuzz(1..100);
 /// ```
-pub fn fizzbuzz<I>(it: I) where I: Iterator<Item = u32> {
+///
+/// # Panics
+///
+/// Panics on `stdout` output error.
+pub fn fizzbuzz<I>(it: I)
+where
+    I: Iterator<Item = u32>,
+{
     let stdout = std::io::stdout();
     let mut stdout = stdout.lock();
 
     for n in it {
-        writeln!(stdout, "{}", FizzBuzz::from(n))
-            .expect("Failed to output");
+        writeln!(stdout, "{}", Value::from(n)).expect("Failed to output");
     }
 }
 
@@ -79,7 +84,7 @@ mod tests {
         ];
 
         for (i, &exp) in expected.iter().enumerate() {
-            assert_eq!(FizzBuzz::from(i as u32), exp);
+            assert_eq!(Value::from(i as u32), exp);
         }
     }
 }
