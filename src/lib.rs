@@ -3,6 +3,21 @@ use std::fmt::{Display, Formatter, Result};
 use Value::*;
 
 /// A FizzBuzz value.
+///
+/// Unsigned integers can be converted to FizzBuzz values.
+///
+/// # Examples
+/// ```
+/// let mut iter = (1..).map(fizzbuzz::Value::from);
+///
+/// assert_eq!(iter.next(), Some(fizzbuzz::Value::Number(1)));
+/// assert_eq!(iter.next(), Some(fizzbuzz::Value::Number(2)));
+/// assert_eq!(iter.next(), Some(fizzbuzz::Value::Fizz));
+/// assert_eq!(iter.next(), Some(fizzbuzz::Value::Number(4)));
+/// assert_eq!(iter.next(), Some(fizzbuzz::Value::Buzz));
+/// assert_eq!(iter.next(), Some(fizzbuzz::Value::Fizz));
+/// assert_eq!(iter.next(), Some(fizzbuzz::Value::Number(7)));
+/// ```
 #[derive(Eq, PartialEq, Copy, Clone, Debug, Hash)]
 pub enum Value {
     Fizz,
