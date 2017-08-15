@@ -33,7 +33,7 @@ impl Display for Value {
     }
 }
 
-/// Print FizzBuzz values over the specified sequence to the standard output.
+/// Prints FizzBuzz values over the specified sequence to the standard output.
 ///
 /// # Examples
 /// ```
