@@ -37,6 +37,14 @@ impl Display for Value {
 /// # Examples
 /// ```
 /// fizzbuzz::fizzbuzz(1..100);
+///
+/// // 1
+/// // 2
+/// // Fizz
+/// // 4
+/// // Buzz
+/// // 6
+/// // <...>
 /// ```
 ///
 /// # Panics
