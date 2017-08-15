@@ -44,7 +44,8 @@ impl Display for Value {
 /// // Fizz
 /// // 4
 /// // Buzz
-/// // 6
+/// // Fizz
+/// // 7
 /// // <...>
 /// ```
 ///
