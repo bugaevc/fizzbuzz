@@ -1,5 +1,6 @@
 use std::fmt::{self, Display, Formatter};
-use super::*;
+use errors::*;
+use super::Policy;
 
 #[derive(Eq, PartialEq, Copy, Clone, Debug, Hash)]
 pub enum Value {
@@ -27,20 +28,17 @@ macro_rules! impl_policy {
     ($type:ty) => (
         impl Policy<$type> for DefaultPolicy {
             type Value = Value;
+            type Error = Error;
 
-            fn accept(&self, x: $type) -> Option<Value> {
-                if x <= 0 {
-                    return None;
-                }
+            fn accept(&self, x: $type) -> Result<Value> {
+                ensure!(x > 0, Error::from_kind(ErrorKind::DomainError));
 
-                let rv = match (x % 3, x % 5) {
+                Ok(match (x % 3, x % 5) {
                     (0, 0) => Value::FizzBuzz,
                     (0, _) => Value::Fizz,
                     (_, 0) => Value::Buzz,
                     (_, _) => Value::Number(x as u64),
-                };
-
-                Some(rv)
+                })
             }
         }
     )

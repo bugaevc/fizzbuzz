@@ -1,7 +1,11 @@
+use std::error::Error;
+
 pub mod printer;
 
 pub use self::printer::PrinterVisitor;
 
 pub trait Visitor<T> {
-    fn visit(&self, value: T);
+    type Error: Error + Send + 'static;
+
+    fn visit(&self, value: T) -> Result<(), Self::Error>;
 }

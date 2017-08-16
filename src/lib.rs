@@ -1,12 +1,17 @@
+#[macro_use]
+extern crate error_chain;
+
 use std::io::prelude::*;
-use std::fmt::{Display, Formatter, Result};
+use std::fmt::{self, Display, Formatter};
 use std::marker::PhantomData;
 use Value::*;
 
+mod errors;
 pub mod builder;
 pub mod policy;
 pub mod visitor;
 
+use errors::*;
 pub use builder::*;
 pub use policy::*;
 pub use visitor::*;
@@ -27,19 +32,16 @@ where
     P: Policy<T>,
     V: Visitor<P::Value>,
 {
-    // TODO: change to Result<(), DomainError>.
-    pub fn work<I>(&self, iter: I) -> Option<()>
+    pub fn work<I>(&self, iter: I) -> Result<()>
     where
         I: Iterator<Item = T>,
     {
         for x in iter {
-            match self.policy.accept(x) {
-                Some(v) => self.visitor.visit(v),
-                None => return None,
-            }
+            let value = self.policy.accept(x).chain_err(|| "failed accepting a value")?;
+            self.visitor.visit(value).chain_err(|| "failed visiting the value")?;
         }
 
-        Some(())
+        Ok(())
     }
 }
 
@@ -81,7 +83,7 @@ impl From<u32> for Value {
 }
 
 impl Display for Value {
-    fn fmt(&self, f: &mut Formatter) -> Result {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         match *self {
             Fizz => write!(f, "Fizz"),
             Buzz => write!(f, "Buzz"),

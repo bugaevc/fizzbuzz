@@ -1,10 +1,12 @@
+use std::error::Error;
+
 pub mod default;
 
 pub use self::default::DefaultPolicy;
 
 pub trait Policy<T> {
     type Value;
+    type Error: Error + Send + 'static;
 
-    // TODO: replace with Result<Value, DomainError>.
-    fn accept(&self, x: T) -> Option<Self::Value>;
+    fn accept(&self, x: T) -> Result<Self::Value, Self::Error>;
 }
