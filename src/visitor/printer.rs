@@ -12,7 +12,7 @@ where
 {
     type Error = Error;
 
-    fn visit(&self, value: T) -> Result<()> {
+    fn visit(&mut self, value: T) -> Result<()> {
         writeln!(io::stdout(), "{}", value).chain_err(|| "failed writing to stdout")
     }
 }

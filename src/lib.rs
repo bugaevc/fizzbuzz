@@ -32,13 +32,17 @@ where
     P: Policy<T>,
     V: Visitor<P::Value>,
 {
-    pub fn work<I>(&self, iter: I) -> Result<()>
+    pub fn work<I>(&mut self, iter: I) -> Result<()>
     where
         I: Iterator<Item = T>,
     {
         for x in iter {
-            let value = self.policy.accept(x).chain_err(|| "failed accepting a value")?;
-            self.visitor.visit(value).chain_err(|| "failed visiting the value")?;
+            let value = self.policy
+                            .accept(x)
+                            .chain_err(|| "failed accepting a value")?;
+            self.visitor
+                .visit(value)
+                .chain_err(|| "failed visiting the value")?;
         }
 
         Ok(())

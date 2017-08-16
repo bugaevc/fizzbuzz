@@ -30,7 +30,7 @@ macro_rules! impl_policy {
             type Value = Value;
             type Error = Error;
 
-            fn accept(&self, x: $type) -> Result<Value> {
+            fn accept(&mut self, x: $type) -> Result<Value> {
                 ensure!(x > 0, Error::from_kind(ErrorKind::DomainError));
 
                 Ok(match (x % 3, x % 5) {
