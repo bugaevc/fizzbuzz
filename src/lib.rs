@@ -1,6 +1,47 @@
 use std::io::prelude::*;
 use std::fmt::{Display, Formatter, Result};
+use std::marker::PhantomData;
 use Value::*;
+
+pub mod builder;
+pub mod policy;
+pub mod visitor;
+
+pub use builder::*;
+pub use policy::*;
+pub use visitor::*;
+
+#[derive(Eq, PartialEq, Copy, Clone, Debug, Hash)]
+pub struct FizzBuzz<P, V, T>
+where
+    P: Policy<T>,
+    V: Visitor<P::Value>,
+{
+    policy: P,
+    visitor: V,
+    _p: PhantomData<fn(T)>,
+}
+
+impl<P, V, T> FizzBuzz<P, V, T>
+where
+    P: Policy<T>,
+    V: Visitor<P::Value>,
+{
+    // TODO: change to Result<(), DomainError>.
+    pub fn work<I>(&self, iter: I) -> Option<()>
+    where
+        I: Iterator<Item = T>,
+    {
+        for x in iter {
+            match self.policy.accept(x) {
+                Some(v) => self.visitor.visit(v),
+                None => return None,
+            }
+        }
+
+        Some(())
+    }
+}
 
 /// A FizzBuzz value.
 ///
