@@ -11,12 +11,12 @@ where
     out: T,
 }
 
-impl<T> WriterVisitor<T> where T: Write
+impl<T> WriterVisitor<T>
+where
+    T: Write,
 {
     pub fn new(out: T) -> Self {
-        Self {
-            out
-        }
+        Self { out }
     }
 }
 
